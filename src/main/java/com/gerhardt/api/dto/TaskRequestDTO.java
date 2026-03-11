@@ -4,20 +4,24 @@ import com.gerhardt.api.model.Task;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO de requisição para criação e atualização de tarefas.
+ */
 public class TaskRequestDTO {
 
+    /** Título da tarefa */
     @NotBlank
     @Size(max = 100)
     private String title;
 
+    /** Descrição da tarefa */
     @Size(max = 255)
     private String description;
 
+    /** Status de conclusão da tarefa */
     private boolean completed = false;
 
-
-
-
+    /** Converte o DTO para a entidade Task */
     public Task toEntity() {
         Task task = new Task();
         task.setTitle(title);
@@ -25,6 +29,7 @@ public class TaskRequestDTO {
         task.setCompleted(completed);
         return task;
     }
+
     public String getTitle() {
         return title;
     }

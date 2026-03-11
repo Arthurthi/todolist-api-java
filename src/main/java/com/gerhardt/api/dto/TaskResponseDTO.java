@@ -1,17 +1,30 @@
 package com.gerhardt.api.dto;
+
 import com.gerhardt.api.model.Task;
 
 import java.time.LocalDateTime;
 
+/**
+ * DTO de resposta com os dados retornados pela API.
+ */
 public class TaskResponseDTO {
 
+    /** Identificador único da tarefa */
     private Long id;
+
+    /** Título da tarefa */
     private String title;
+
+    /** Descrição da tarefa */
     private String description;
+
+    /** Status de conclusão da tarefa */
     private boolean completed = false;
+
+    /** Data e hora de criação da tarefa */
     private LocalDateTime createdAt;
 
-
+    /** Converte a entidade Task para o DTO de resposta */
     public static TaskResponseDTO fromEntity(Task task) {
         TaskResponseDTO dto = new TaskResponseDTO();
         dto.setId(task.getId());

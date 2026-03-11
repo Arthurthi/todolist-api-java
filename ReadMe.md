@@ -67,3 +67,8 @@ Permite criar, listar, atualizar e deletar tarefas de forma simples e eficiente.
 
 Arthur Thiesen Gerhardt
 [LinkedIn](https://www.linkedin.com/in/Arthurthi)
+
+## API Online
+
+- **Base URL:** https://todolist-api-java-production.up.railway.app
+- **Swagger:** https://todolist-api-java-production.up.railway.app/swagger-ui/index.html

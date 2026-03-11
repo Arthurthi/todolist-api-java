@@ -19,16 +19,18 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class TaskServiceTest {
+
     @Mock
     TaskRepository taskRepository;
 
     @InjectMocks
     TaskService taskService;
 
+    /** Verifica se uma tarefa é criada e salva com sucesso */
     @Test
     void deveCriarUmaTarefaComSucesso() {
         String title = "Tarefa teste";
-        String description = "tarefa crida com sucesso";
+        String description = "tarefa criada com sucesso";
         TaskRequestDTO requestDTO = new TaskRequestDTO();
         requestDTO.setTitle(title);
         requestDTO.setDescription(description);
@@ -46,7 +48,7 @@ public class TaskServiceTest {
         assertEquals(title, result.getTitle());
     }
 
-
+    /** Verifica se uma tarefa é retornada corretamente pelo id */
     @Test
     void deveRetornarTarefaPorIdComSucesso() {
         Long id = 1L;
@@ -60,15 +62,12 @@ public class TaskServiceTest {
 
         assertTrue(result.isPresent());
         assertEquals(id, result.get().getId());
-
     }
 
+    /** Verifica se Optional vazio é retornado quando a tarefa não existe */
     @Test
     void deveRetornarVazioQuandoTarefaNaoEncontrada() {
         Long id = 1L;
-        Task task = new Task();
-        task.setId(id);
-        task.setTitle("Tarefa teste");
 
         when(taskRepository.findById(id)).thenReturn(Optional.empty());
 
