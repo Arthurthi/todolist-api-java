@@ -4,6 +4,8 @@ import com.gerhardt.api.dto.TaskRequestDTO;
 import com.gerhardt.api.dto.TaskResponseDTO;
 import com.gerhardt.api.service.TaskService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +28,8 @@ public class TaskController {
 
     /** Retorna todas as tarefas cadastradas */
     @GetMapping
-    public ResponseEntity<List<TaskResponseDTO>> getAllTasks() {
-        return ResponseEntity.ok(taskService.getAllTasks());
+    public ResponseEntity<Page<TaskResponseDTO>> getAllTasks(@RequestParam(required = false) Boolean completed, Pageable pageable) {
+        return ResponseEntity.ok(taskService.getAllTasks(completed, pageable));
     }
 
     /** Retorna uma tarefa pelo seu identificador único. Retorna 404 se não encontrada */

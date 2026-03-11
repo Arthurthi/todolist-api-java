@@ -4,6 +4,8 @@ import com.gerhardt.api.dto.TaskRequestDTO;
 import com.gerhardt.api.dto.TaskResponseDTO;
 import com.gerhardt.api.model.Task;
 import com.gerhardt.api.repository.TaskRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +25,14 @@ public class TaskService {
     }
 
     /** Retorna todas as tarefas cadastradas */
-    public List<TaskResponseDTO> getAllTasks() {
-        return taskRepository.findAll()
-                .stream()
-                .map(TaskResponseDTO::fromEntity)
-                .toList();
+    public Page<TaskResponseDTO> getAllTasks(Boolean completed, Pageable pageable) {
+        Page<Task> page;
+        if(completed != null) {
+            page = taskRepository.findByCompleted(completed, pageable);
+        } else {
+            page = taskRepository.findAll(pageable);
+        }
+        return page.map(TaskResponseDTO::fromEntity);
     }
 
     /** Retorna uma tarefa pelo seu identificador único */
