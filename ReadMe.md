@@ -1,4 +1,3 @@
-
 # todolist-api-java
 
 API REST para gerenciamento de tarefas desenvolvida como projeto de portfólio.
@@ -12,10 +11,6 @@ Permite criar, listar, atualizar e deletar tarefas de forma simples e eficiente.
 - PostgreSQL
 - Swagger / OpenAPI
 - Maven
-
-
-
-
 
 ## Como rodar
 
@@ -31,7 +26,7 @@ Permite criar, listar, atualizar e deletar tarefas de forma simples e eficiente.
 2. Crie o banco de dados
    CREATE DATABASE todolist;
 
-3. Configure o arquivo application.properties.
+3. Configure o arquivo application.properties
    Renomeie o application.properties.example para application.properties
    e preencha com suas credenciais do PostgreSQL
 
@@ -41,15 +36,32 @@ Permite criar, listar, atualizar e deletar tarefas de forma simples e eficiente.
 5. Acesse a documentação
    http://localhost:8080/swagger-ui/index.html
 
-
 ## ENDPOINTS
 
-- GET | /tasks | lista todas as tarefas
-- GET | /tasks/{id} | Busca tarefa por ID 
-- POST | /tasks | Cria uma nova tarefa 
-- PUT | /tasks/{id} | Atualiza uma tarefa 
-- DELETE | /tasks/{id} | Remove uma tarefa 
+- GET | /tasks | Lista todas as tarefas
+- GET | /tasks/{id} | Busca tarefa por ID
+- POST | /tasks | Cria uma nova tarefa
+- PUT | /tasks/{id} | Atualiza uma tarefa
+- DELETE | /tasks/{id} | Remove uma tarefa
 
+### Exemplo de Request (POST /tasks)
+```json
+{
+    "title": "Minha tarefa",
+    "description": "Descrição da tarefa"
+}
+```
+
+### Exemplo de Response
+```json
+{
+    "id": 1,
+    "title": "Minha tarefa",
+    "description": "Descrição da tarefa",
+    "completed": false,
+    "createdAt": "2026-03-11T09:52:13"
+}
+```
 
 ## AUTOR
 
