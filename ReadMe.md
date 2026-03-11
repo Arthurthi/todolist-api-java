@@ -31,7 +31,7 @@ Permite criar, listar, atualizar e deletar tarefas de forma simples e eficiente.
 2. Crie o banco de dados
    CREATE DATABASE todolist;
 
-3. Configure o arquivo application.properties
+3. Configure o arquivo application.properties.
    Renomeie o application.properties.example para application.properties
    e preencha com suas credenciais do PostgreSQL
 
@@ -44,11 +44,11 @@ Permite criar, listar, atualizar e deletar tarefas de forma simples e eficiente.
 
 ## ENDPOINTS
 
-GET | /tasks | lista todas as tarefas
-GET | /tasks/{id} | Busca tarefa por ID 
-POST | /tasks | Cria uma nova tarefa 
-PUT | /tasks/{id} | Atualiza uma tarefa 
-DELETE | /tasks/{id} | Remove uma tarefa 
+- GET | /tasks | lista todas as tarefas
+- GET | /tasks/{id} | Busca tarefa por ID 
+- POST | /tasks | Cria uma nova tarefa 
+- PUT | /tasks/{id} | Atualiza uma tarefa 
+- DELETE | /tasks/{id} | Remove uma tarefa 
 
 
 ## AUTOR

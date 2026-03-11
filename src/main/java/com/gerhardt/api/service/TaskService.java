@@ -1,5 +1,7 @@
 package com.gerhardt.api.service;
 
+import com.gerhardt.api.dto.TaskRequestDTO;
+import com.gerhardt.api.dto.TaskResponseDTO;
 import com.gerhardt.api.model.Task;
 import com.gerhardt.api.repository.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -21,18 +23,23 @@ public class TaskService {
     }
 
     /** Retorna todas as tarefas cadastradas */
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+    public List<TaskResponseDTO> getAllTasks() {
+        return taskRepository.findAll()
+                .stream()
+                .map(TaskResponseDTO::fromEntity)
+                .toList();
     }
 
     /** Retorna uma tarefa pelo seu identificador único */
-    public Optional<Task> getTaskById(Long id) {
-        return taskRepository.findById(id);
+    public Optional<TaskResponseDTO> getTaskById(Long id) {
+        return taskRepository.findById(id)
+                .map(TaskResponseDTO::fromEntity);
     }
 
     /** Cria e salva uma nova tarefa */
-    public Task createTask(Task task) {
-        return taskRepository.save(task);
+    public TaskResponseDTO createTask(TaskRequestDTO taskRequestDTO) {
+        Task task = taskRequestDTO.toEntity();
+        return TaskResponseDTO.fromEntity(taskRepository.save(task));
     }
 
     /** Remove uma tarefa pelo seu identificador único */
@@ -41,13 +48,13 @@ public class TaskService {
     }
 
     /** Atualiza os dados de uma tarefa existente */
-    public Optional<Task> updateTask(Long id, Task task) {
+    public Optional<TaskResponseDTO> updateTask(Long id, TaskRequestDTO taskRequestDTO) {
         return taskRepository.findById(id)
                 .map(existingTask -> {
-                    existingTask.setTitle(task.getTitle());
-                    existingTask.setDescription(task.getDescription());
-                    existingTask.setCompleted(task.isCompleted());
-                    return taskRepository.save(existingTask);
+                    existingTask.setTitle(taskRequestDTO.getTitle());
+                    existingTask.setDescription(taskRequestDTO.getDescription());
+                    existingTask.setCompleted(taskRequestDTO.isCompleted());
+                    return TaskResponseDTO.fromEntity(taskRepository.save(existingTask));
                 });
     }
 }

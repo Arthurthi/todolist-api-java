@@ -1,6 +1,7 @@
 package com.gerhardt.api.controller;
 
-import com.gerhardt.api.model.Task;
+import com.gerhardt.api.dto.TaskRequestDTO;
+import com.gerhardt.api.dto.TaskResponseDTO;
 import com.gerhardt.api.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -25,13 +26,13 @@ public class TaskController {
 
     /** Retorna todas as tarefas cadastradas */
     @GetMapping
-    public ResponseEntity<List<Task>> getAllTasks() {
+    public ResponseEntity<List<TaskResponseDTO>> getAllTasks() {
         return ResponseEntity.ok(taskService.getAllTasks());
     }
 
     /** Retorna uma tarefa pelo seu identificador único. Retorna 404 se não encontrada */
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
+    public ResponseEntity<TaskResponseDTO> getTaskById(@PathVariable Long id) {
         return taskService.getTaskById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -39,8 +40,8 @@ public class TaskController {
 
     /** Cria uma nova tarefa. Retorna 201 com a tarefa criada */
     @PostMapping
-    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(task));
+    public ResponseEntity<TaskResponseDTO> createTask(@Valid @RequestBody TaskRequestDTO taskRequestDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(taskRequestDTO));
     }
 
     /** Remove uma tarefa pelo seu identificador único */
@@ -52,8 +53,8 @@ public class TaskController {
 
     /** Atualiza os dados de uma tarefa existente. Retorna 404 se não encontrada */
     @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@Valid @RequestBody Task task, @PathVariable Long id) {
-        return taskService.updateTask(id, task)
+    public ResponseEntity<TaskResponseDTO> updateTask(@Valid @RequestBody TaskRequestDTO taskRequestDTO, @PathVariable Long id) {
+        return taskService.updateTask(id, taskRequestDTO)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
